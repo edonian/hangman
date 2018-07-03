@@ -58,8 +58,8 @@ class HangMan
 
 end
  
-hangman = HangMan.new
-hangman.play_game
+#hangman = HangMan.new
+#hangman.play_game
 # hangman.get_guess
 # p hangman.fill_blanks_with_correct_letters
 # hangman.get_words
