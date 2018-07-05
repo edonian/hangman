@@ -5,18 +5,23 @@ class HangMan
         @word = get_random_game_word
         @guess = ''
         @word_array = create_blanks
+        @past_guesses = []
     end 
 
     def play_game
+        system('clear')
         display_welcome_message
         p @word_array.join("  ")
         
-
         while true
             get_guess
-            p fill_blanks_with_correct_letters.join(" ")
+            system('clear')
             user_feedback
-            puts " "
+            # puts "Your past guesses are " + @past_guesses.join(" ")
+            puts "Your past guesses are #{ @past_guesses.join(", ")} ."
+            
+            puts fill_blanks_with_correct_letters.join(" ")
+            # puts " "
         end
     end    
      
@@ -45,9 +50,11 @@ class HangMan
         if @word.include? @guess
             puts "Brilliant guess, guess another letter!"
         else
+            @past_guesses << @guess
             puts "FAIL. That word did not contain " + @guess +"." " Try Again!"
         end
     end
+
 
     def fill_blanks_with_correct_letters
         @word_array=
