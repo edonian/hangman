@@ -15,6 +15,7 @@ class HangMan
         while true
             get_guess
             p fill_blanks_with_correct_letters.join(" ")
+            user_feedback
             puts " "
         end
     end    
@@ -24,7 +25,7 @@ class HangMan
     end
 
     def get_random_game_word
-        random_words = ["light", "dark", "neutral", "moon", "utopia", "george", "bobby"]
+        random_words = ["light", "dark", "neutral", "moon", "utopia"]
         random_words.sample
     end
 
@@ -40,9 +41,16 @@ class HangMan
         (0 ... @word.length).find_all { |i| @word[i] == @guess }
     end
 
-
+    def user_feedback
+        if @word.include? @guess
+            puts "Brilliant guess, guess another letter!"
+        else
+            puts "FAIL. That word did not contain " + @guess +"." " Try Again!"
+        end
+    end
 
     def fill_blanks_with_correct_letters
+        @word_array=
         @word_array = @word_array.each_with_index.map do |blank, index|
             indexes = get_matching_letter_indexes
             if indexes.include? index
@@ -51,6 +59,7 @@ class HangMan
                 blank
             end
         end
+       
     end
 
 
@@ -58,8 +67,8 @@ class HangMan
 
 end
  
-#hangman = HangMan.new
-#hangman.play_game
+hangman = HangMan.new
+hangman.play_game
 # hangman.get_guess
 # p hangman.fill_blanks_with_correct_letters
 # hangman.get_words
