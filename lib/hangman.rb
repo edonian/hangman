@@ -1,21 +1,25 @@
 class HangMan
+attr_reader :word, :word_array
 
-    #initializing the @words method, basically storing the user's input. 
     def initialize 
         @word = get_random_game_word
         @guess = ''
         @word_array = create_blanks
+        @past_guesses = []
     end 
 
     def play_game
+        system('clear')
         display_welcome_message
         p @word_array.join("  ")
         
-
         while true
             get_guess
-            p fill_blanks_with_correct_letters.join(" ")
-            puts " "
+            system('clear')
+            user_feedback
+            puts "Your past guesses are: #{@past_guesses.join(", ")}."
+            
+            puts fill_blanks_with_correct_letters.join(" ")
         end
     end    
      
@@ -24,7 +28,7 @@ class HangMan
     end
 
     def get_random_game_word
-        random_words = ["light", "dark", "neutral", "moon", "utopia", "george", "bobby"]
+        random_words = ["light", "dark", "neutral", "moon", "utopia"]
         random_words.sample
     end
 
@@ -40,6 +44,14 @@ class HangMan
         (0 ... @word.length).find_all { |i| @word[i] == @guess }
     end
 
+    def user_feedback
+        if @word.include? @guess
+            puts "Brilliant guess! Try another letter!"
+        else
+            @past_guesses << @guess
+            puts "FAIL. That word did not contain #{@guess} Try Again!"
+        end
+    end
 
 
     def fill_blanks_with_correct_letters
@@ -51,6 +63,7 @@ class HangMan
                 blank
             end
         end
+       
     end
 
 
@@ -58,8 +71,7 @@ class HangMan
 
 end
  
-hangman = HangMan.new
-hangman.play_game
-# hangman.get_guess
-# p hangman.fill_blanks_with_correct_letters
-# hangman.get_words
+
+
+
+
