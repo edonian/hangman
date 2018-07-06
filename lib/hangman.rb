@@ -1,4 +1,5 @@
 class HangMan
+attr_reader :word, :word_array
 
     def initialize 
         @word = get_random_game_word
